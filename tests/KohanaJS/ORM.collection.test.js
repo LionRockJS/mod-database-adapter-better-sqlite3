@@ -105,20 +105,19 @@ INSERT INTO persons (id, enable, name, email) VALUES (6, 0, 'Frank', 'frank@exam
 
   test('read With', async () => {
     const criteria = [
-      ['', 'enable', EQUAL, TRUE],
-      [AND],
-      [START_GROUP],
-      ['', 'name', EQUAL, 'Alice'],
-      [OR, 'name', EQUAL, 'Bob'],
-      [OR, 'name', EQUAL, ['?', "Charlie"]],//danger, this allow SQL injection
-      [OR, 'name', EQUAL, ["'Dennis'"]],//danger, this allow SQL injection
-      [OR, 'name', EQUAL, () => "'Eric'" ], //danger, this allow SQL injection
-      [END_GROUP],
+      ['', 'enable', 'EQUAL', 'TRUE'],
+      ['AND'],
+      ['START_GROUP'],
+      ['', 'name', 'EQUAL', 'Alice'],
+      ['OR', 'name', 'EQUAL', 'Bob'],
+      ['OR', 'name', 'EQUAL', ['?', "Charlie"]],//danger, this allow SQL injection
+      ['OR', 'name', 'EQUAL', ["'Dennis'"]],//danger, this allow SQL injection
+      ['OR', 'name', 'EQUAL', () => "'Eric'" ], //danger, this allow SQL injection
+      ['END_GROUP'],
     ];
 
     const strCriteria = SQLiteAdapter.formatCriteria(criteria);
     expect(strCriteria).toBe(" enable = ? AND    (     name = ? OR name = ? OR name = ? OR name = 'Dennis' OR name = 'Eric' )    ");
-
 
     const people = await ORM.readWith(Person, criteria, { database: db });
     expect(people.length).toBe(3);

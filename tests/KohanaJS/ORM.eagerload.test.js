@@ -1,13 +1,13 @@
 import url from "node:url";
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url)).replace(/\/$/, '');
 
-const { KohanaJS, ORM, DatabaseDriver } = require('kohanajs');
+import { Central, ORM, DatabaseDriver } from 'lionrockjs';
+import DatabaseDriverBetterSQLite3 from '../../classes/databaseDriver/BetterSQLite3';
+import ORMAdapterSQLite from '../../classes/ORMAdapter/SQLite';
+import Database from 'better-sqlite3';
 
-KohanaJS.init(`${__dirname}/test18`);
-DatabaseDriver.defaultDriver = require('../../classes/databaseDriver/BetterSQLite3');
-ORM.defaultAdapter = require('../../classes/ORMAdapter/SQLite');
-
-const Database = require('better-sqlite3');
+DatabaseDriver.defaultDriver = DatabaseDriverBetterSQLite3;
+ORM.defaultAdapter = ORMAdapterSQLite;
 
 class Product extends ORM {
   name = null;
@@ -85,6 +85,16 @@ class Collection extends ORM {
   ]);
 }
 
+await Central.init({
+  EXE_PATH: __dirname,
+  APP_PATH: `${__dirname}/orm/application`,
+});
+
+Central.classPath.set('model/Product.mjs', Product);
+Central.classPath.set('model/Variant.mjs', Variant);
+Central.classPath.set('model/Inventory.mjs', Inventory);
+Central.classPath.set('model/Collection.mjs', Collection);
+
 describe('orm test', () => {
   const db = new Database(':memory:');
   db.exec(`CREATE TABLE products(
@@ -161,12 +171,6 @@ CREATE TABLE collection_products(
 `);
 
   beforeEach(() => {
-    KohanaJS.init(__dirname, `${__dirname}/orm/application`, `${__dirname}/test1/modules`);
-    KohanaJS.classPath.set('model/Product.js', Product);
-    KohanaJS.classPath.set('model/Variant.js', Variant);
-    KohanaJS.classPath.set('model/Inventory.js', Inventory);
-    KohanaJS.classPath.set('model/Collection.js', Collection);
-
     db.prepare('INSERT INTO products (id, name) VALUES (?, ?);').run(1, 'Foo');
     db.prepare('INSERT INTO products (id, name) VALUES (?, ?);').run(2, 'Tar');
     db.prepare('INSERT INTO products (id, name) VALUES (?, ?);').run(3, 'Sar');
