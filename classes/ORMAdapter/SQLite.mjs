@@ -1,4 +1,4 @@
-import {ORMAdapter} from 'lionrockjs';
+import { ORMAdapter } from 'lionrockjs';
 
 export default class ORMAdapterSQLite extends ORMAdapter {
   static OP = ({

@@ -122,10 +122,10 @@ INSERT INTO persons (id, enable, name, email) VALUES (6, 0, 'Frank', 'frank@exam
     const people = await ORM.readWith(Person, criteria, { database: db });
     expect(people.length).toBe(3);
 
-    const empty = await ORM.readWith(Person, [], { adapter: await import('../../classes/ORMAdapter/SQLite') });
+    const empty = await ORM.readWith(Person, [], { adapter: SQLiteAdapter});
     expect(empty.length).toBe(0);
 
-    Person.defaultAdapter = await import('../../classes/ORMAdapter/SQLite');
+    Person.defaultAdapter = SQLiteAdapter;
     const empty2 = await ORM.readWith(Person);
     expect(empty2.length).toBe(0);
 

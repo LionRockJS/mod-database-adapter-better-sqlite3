@@ -1,7 +1,7 @@
 {
   "name": "@lionrockjs/mod-database-adapter-better-sqlite3",
   "version": "1.0.0",
-  "description": "The KohanaJS Database Adapter for Better SQLIite3",
+  "description": "The KohanaJS Database Adapter for Better SQLite3",
   "main": "index.js",
   "type": "module",
   "scripts": {
