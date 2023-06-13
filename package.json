@@ -1,0 +1,40 @@
+{
+  "name": "@lionrockjs/mod-database-adapter-better-sqlite3",
+  "version": "1.0.0",
+  "description": "The KohanaJS Database Adapter for Better SQLIite3",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules ../../../node_modules/jest/bin/jest.js --coverage"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {},
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)",
+      "**/?(*.)+(spec|test).mjs"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "mjs"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LionRockJS/mod-database-adapter-better-sqlite3.git"
+  },
+  "keywords": [
+    "LionRockJS",
+    "Database",
+    "better-sqlite3",
+    "sqlite3"
+  ],
+  "author": "Kojin Nakana",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LionRockJS/mod-database-adapter-better-sqlite3/issues"
+  },
+  "homepage": "https://github.com/LionRockJS/mod-database-adapter-better-sqlite3#readme"
+}
